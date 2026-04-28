@@ -24,6 +24,16 @@ app.post('/tarefas', async (req, res) => {
   res.json(t);
 });
 
+// ROTA PARA DELETAR (Coloque logo abaixo da rota de POST)
+app.delete('/tarefas/:id', async (req, res) => {
+  try {
+    await Tarefa.findByIdAndDelete(req.params.id);
+    res.json({ mensagem: "Removido com sucesso!" });
+  } catch (error) {
+    res.status(500).json({ erro: error });
+  }
+});
+
 // O segredo para o Render é esta linha abaixo:
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
